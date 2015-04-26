@@ -28,7 +28,7 @@ namespace colored {
 
 		private Color getColorAt(int i, long fileLength, byte[] arr)
 		{
-			byte r, g, b;
+			byte r, g, b, a;
 
 			try {
 				b = arr[i * 4];
@@ -48,7 +48,13 @@ namespace colored {
 				r = 0;
 			}
 
-			return Color.FromArgb(r, g, b);
+			try {
+				a = arr[i * 4 + 3];
+			} catch (Exception) {
+				a = 255;
+			}
+
+			return Color.FromArgb(a, r, g, b);
 		}
 
 		private void createLabel(int i, byte[] data, int x, int y, long flength)
